@@ -59,3 +59,8 @@ typings/
 
 # next.js build output
 .next
+
+# My Stuff
+config.js
+package-lock.json
+serverless.yml
