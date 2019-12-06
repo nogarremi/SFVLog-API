@@ -6,6 +6,7 @@ var _ = require('underscore');
 var fs = require('fs');
 var config = require('../config');
 
+players.belongsTo(ranks, {foreignKey: 'rank_id '});
 matches.belongsTo(characters, {foreignKey: 'char_id'});
 matches.belongsTo(players, {foreignKey: 'opp_id'});
 exports.getPlayers = function(req, res) {

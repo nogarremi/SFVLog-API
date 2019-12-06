@@ -8,15 +8,11 @@ module.exports = function(sequelize, DataTypes) {
       },
     year: {
         type: DataTypes.INTEGER(4).UNSIGNED,
-        allowNull: false,
+        allowNull: false
       },
       match_type: {
-        type: DataTypes.TINYINT.UNSIGNED,
-        allowNull: false,
-        references: {
-          model: 'games',
-          key: 'game_ID'
-        }
+        type: DataTypes.TINYINT(1).UNSIGNED,
+        allowNull: false
       },
       my_char_id: {
         type: DataTypes.TINYINT(2).ZEROFILL.UNSIGNED,

@@ -1,22 +1,14 @@
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('players', {
-      opp_id: {
-        type: DataTypes.INTEGER(8).ZEROFILL.UNSIGNED,
+      rank_id: {
+        type: DataTypes.TINYINT(2).ZEROFILL.UNSIGNED,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
       },
-      opp_name: {
-        type: DataTypes.STRING(16),
+      rank_name: {
+        type: DataTypes.STRING(21),
         allowNull: false
-      },
-      opp_rank_id: {
-          type: DataTypes.TINYINT(2).ZEROFILL.UNSIGNED,
-          allowNull: false,
-          references: {
-            model: 'ranks',
-            key: 'rank_id'
-          }
       },
       createdAt: {
         type: DataTypes.DATE,
