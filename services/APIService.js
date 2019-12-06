@@ -1,25 +1,26 @@
 var seq = require('../models/seq');
-var players = seq.import('../models/players');
+var opponents = seq.import('../models/opponents');
 var characters = seq.import('../models/characters');
 var matches = seq.import('../models/matches');
+var ranks = seq.import('../models/ranks');
 var _ = require('underscore');
 var fs = require('fs');
 var config = require('../config');
 
-players.belongsTo(ranks, {foreignKey: 'rank_id '});
+opponents.belongsTo(ranks, {foreignKey: 'rank_id '});
 matches.belongsTo(characters, {foreignKey: 'char_id'});
-matches.belongsTo(players, {foreignKey: 'opp_id'});
-exports.getPlayers = function(req, res) {
-    players.findAll()
+matches.belongsTo(opponents, {foreignKey: 'opp_id'});
+exports.getOpponents = function(req, res) {
+    opponents.findAll()
     .then(p => {
         if(!p) {
             return res.status(400).send({
-                message: "No players found!"
+                message: "No opponents found!"
             })
         }
 
         return res.status(200).send({
-            players: p
+            opponents: o
         })
     })
 };
@@ -65,7 +66,7 @@ exports.getSpecificMatches = function(req, res) {
             oppChar: req.params.oppChar,
             result: req.params.result
         },
-        include: [characters, players]
+        include: [characters, opponents]
     }).then(m => {
         if(!m) {
             return res.status(400).send({

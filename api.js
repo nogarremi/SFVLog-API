@@ -16,7 +16,7 @@ app.use(function(req, res, next){
     res.header('Access-Control-Allow-Methods', 'GET');
 })
 
-app.get('/players', service.getPlayers);
+app.get('/opponents', service.getOpponents);
 app.get('/characters', service.getCharacters);
 app.get('/matches', service.getAllMatches);
 //app.get('/:year/:match_type/:myChar/:oppName/:oppChar/:result', service.getResults);

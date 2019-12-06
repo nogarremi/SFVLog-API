@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.INTEGER(8).ZEROFILL.UNSIGNED,
         allowNull: false,
         references: {
-          model: 'players',
+          model: 'opponents',
           key: 'opp_id'
         }
       },
