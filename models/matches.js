@@ -1,12 +1,12 @@
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('matches', {
-       match_id: {
+      match_id: {
         type: DataTypes.INTEGER(8).ZEROFILL.UNSIGNED,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
       },
-    year: {
+      year: {
         type: DataTypes.INTEGER(4).UNSIGNED,
         allowNull: false
       },
