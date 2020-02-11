@@ -13,12 +13,18 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
 app.use(function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.header('Access-Control-Allow-Methods', 'GET');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+
+    if(req.method === 'OPTIONS'){
+        res.status(204).send();
+    }else{
+        next();
+    }
 })
 
-app.get('/opponents', service.getOpponents);
 app.get('/characters', service.getCharacters);
-app.get('/matches', service.getAllMatches);
-//app.get('/:year/:match_type/:myChar/:oppName/:oppChar/:result', service.getResults);
+app.get('/ranks', service.getRanks);
+app.get('/opponents', service.getOpponents);
+app.get('/matches', service.getMatches);
 
 module.exports.handler = serverless(app);

@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('players', {
+    return sequelize.define('ranks', {
       rank_id: {
         type: DataTypes.TINYINT(2).ZEROFILL.UNSIGNED,
         allowNull: false,
@@ -20,6 +20,6 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: true
       }
     }, {
-      tableName: 'players'
+      tableName: 'ranks'
     });
   };

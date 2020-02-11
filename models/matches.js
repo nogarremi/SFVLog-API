@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
         primaryKey: true,
         autoIncrement: true
       },
-      year: {
+      season: {
         type: DataTypes.INTEGER(4).UNSIGNED,
         allowNull: false
       },
@@ -39,7 +39,7 @@ module.exports = function(sequelize, DataTypes) {
         }
       },
       result: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.TINYINT(1).UNSIGNED,
         allowNull: false
       },
       createdAt: {
