@@ -136,3 +136,40 @@ exports.getMatches = function(req, res) {
         })
     })
 };
+
+/*exports.postMatch = function(req, res) {
+    let season = req.body.season;
+    let type = req.body.type;
+    let result = req.body.result;
+    let my_char = req.body.my_char;
+    let opp_char = req.body.opp_char;
+    let opp_name = req.body.opp_name;
+    let opp_rank = req.body.opp_rank;
+    
+    opponents.findAll({
+        attributes: ["opp_id", "opp_rank_id", "opp_name"]
+    })
+    .then(o => {
+        var names = [];
+        o.forEach(item => {
+            names.push(item.opp_name);
+        })
+        if (names.includes(opp_name)){
+            opponents.update({opp_rank_id: opp_rank}, {where: {opp_name: opp_name}});
+        }
+        else {
+            opponents.create({ opp_name: opp_name, opp_rank_id: opp_rank});
+        }
+        var sql = '(SELECT opp_id FROM opponents WHERE opp_name = ' + opp_name + ')';
+        var new_match = await matches.create({season: season, match_type: type, my_char_id: my_char, opp_id: seq.literal(sql), opp_char_id: opp_char, result: result});
+        if (!new_match){
+            return res.status(400).send({
+                message: "No matches found!"
+            })
+        }
+        return res.status(200).send({
+            results: new_match
+        })
+    })
+};
+*/

@@ -26,5 +26,6 @@ app.get('/characters', service.getCharacters);
 app.get('/ranks', service.getRanks);
 app.get('/opponents', service.getOpponents);
 app.get('/matches', service.getMatches);
+//app.post('/match', service.postMatch);
 
 module.exports.handler = serverless(app);
