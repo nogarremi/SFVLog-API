@@ -148,10 +148,10 @@ exports.postMatch = function(req, res) {
             names.push(item.opp_name);
         })
         if (!names.includes(opp_name)){
-            opponents.create({ opp_name: opp_name, opp_rank_id: opp_rank}).then(matches.create({season: season, match_type: type, my_char_id: my_char, opp_id: seq.literal(sql), opp_char_id: opp_char, result: result}));
+            opponents.create({ opp_name: opp_name}).then(matches.create({season: season, match_type: type, my_char_id: my_char, opp_id: seq.literal(sql), opp_char_id: opp_char, opp_rank_id: opp_rank, result: result}));
         }
         else {
-            matches.create({season: season, match_type: type, my_char_id: my_char, opp_id: seq.literal(sql), opp_char_id: opp_char, result: result});
+            matches.create({season: season, match_type: type, my_char_id: my_char, opp_id: seq.literal(sql), opp_char_id: opp_char, opp_rank_id: opp_rank, result: result});
         }
         return res.status(200).send([season, type, result, my_char, opp_char, opp_name, opp_rank]);
     })
