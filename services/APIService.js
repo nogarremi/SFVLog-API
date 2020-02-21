@@ -8,7 +8,7 @@ var fs = require('fs');
 var config = require('../config');
 
 
-opponents.belongsTo(ranks, {foreignKey: 'opp_rank_id'});
+matches.belongsTo(ranks, {foreignKey: 'opp_rank_id'});
 matches.belongsTo(characters, {as: 'My Character', foreignKey: 'my_char_id'});
 matches.belongsTo(characters, {as: 'Opponent Character', foreignKey: 'opp_char_id'});
 matches.belongsTo(opponents, {foreignKey: 'opp_id'});
@@ -50,11 +50,7 @@ exports.getRanks = function(req, res) {
 
 exports.getOpponents = function(req, res) {
     opponents.findAll({
-        attributes: ["opp_id", "opp_rank_id", "opp_name"],
-        include: {
-            model: ranks,
-            attributes: ["rank_id", "rank_name"]
-        }
+        attributes: ["opp_id", "opp_name"]
     })
     .then(o => {
         if(!o) {
@@ -99,10 +95,8 @@ exports.getMatches = function(req, res) {
         wheres['opp_id'] = opp_id;
     }
     if (!!opp_rank) {
-        where_rank['rank_id'] = opp_rank;
+        wheres['rank_id'] = opp_rank;
     }
-    
-    
     
     matches.findAll({
         where: wheres,
@@ -117,12 +111,10 @@ exports.getMatches = function(req, res) {
             attributes: ["char_id", "char_name"]
         }, {
             model: opponents,
-            attributes: ["opp_id", "opp_name"],
-            include: {
-                model: ranks,
-                where: where_rank,
-                attributes: ["rank_id", "rank_name"]
-            }
+            attributes: ["opp_id", "opp_name"]
+        }, {
+            model: ranks,
+            attributes: ["rank_id", "rank_name"]
         }]
     }).then(m => {
         if(!m) {
@@ -148,18 +140,18 @@ exports.postMatch = function(req, res) {
     var sql = '(SELECT opp_id FROM opponents WHERE opp_name = "' + opp_name + '")';
     
     opponents.findAll({
-        attributes: ["opp_id", "opp_rank_id", "opp_name"]
+        attributes: ["opp_id", "opp_name"]
     })
     .then(o => {
         var names = [];
         o.forEach(item => {
             names.push(item.opp_name);
         })
-        if (names.includes(opp_name)){
-            opponents.update({opp_rank_id: opp_rank}, {where: {opp_name: opp_name}}).then(matches.create({season: season, match_type: type, my_char_id: my_char, opp_id: seq.literal(sql), opp_char_id: opp_char, result: result}));
+        if (!names.includes(opp_name)){
+            opponents.create({ opp_name: opp_name, opp_rank_id: opp_rank}).then(matches.create({season: season, match_type: type, my_char_id: my_char, opp_id: seq.literal(sql), opp_char_id: opp_char, result: result}));
         }
         else {
-            opponents.create({ opp_name: opp_name, opp_rank_id: opp_rank}).then(matches.create({season: season, match_type: type, my_char_id: my_char, opp_id: seq.literal(sql), opp_char_id: opp_char, result: result}));
+            matches.create({season: season, match_type: type, my_char_id: my_char, opp_id: seq.literal(sql), opp_char_id: opp_char, result: result});
         }
         return res.status(200).send([season, type, result, my_char, opp_char, opp_name, opp_rank]);
     })

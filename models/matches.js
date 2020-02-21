@@ -38,6 +38,14 @@ module.exports = function(sequelize, DataTypes) {
           key: 'char_id'
         }
       },
+      opp_rank_id: {
+          type: DataTypes.TINYINT(2).ZEROFILL.UNSIGNED,
+          allowNull: false,
+          references: {
+            model: 'ranks',
+            key: 'rank_id'
+          }
+      },
       result: {
         type: DataTypes.TINYINT(1).UNSIGNED,
         allowNull: false

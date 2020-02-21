@@ -10,14 +10,6 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING(16),
         allowNull: false
       },
-      opp_rank_id: {
-          type: DataTypes.TINYINT(2).ZEROFILL.UNSIGNED,
-          allowNull: false,
-          references: {
-            model: 'ranks',
-            key: 'rank_id'
-          }
-      },
       createdAt: {
         type: DataTypes.DATE,
         allowNull: true,
