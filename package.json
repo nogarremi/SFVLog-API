@@ -1,5 +1,5 @@
 {
-  "name": "sfv_log",
+  "name": "sfvlog",
   "version": "1.0.0",
   "description": "API for Nogarremi's log of online SFV matches",
   "main": "api.js",
